@@ -1,0 +1,5 @@
+BOARD_SIZE: 10
+
+#PLAYERS have to be in ["Random", "Keyboard", "MC"]
+PLAYER1: "Random"
+PLAYER2: "Random"
