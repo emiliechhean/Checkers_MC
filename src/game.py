@@ -1,3 +1,7 @@
+import random
+import pygame
+from src.utils import *
+
 ### SOURCE : ###
 
 class Game:
@@ -38,14 +42,14 @@ class Game:
                                ['o','-','o','-','o','-','o','-','o','-'],
                                ['-','o','-','o','-','o','-','o','-','o']]
 
-    def evaluate_click(self, mouse_pos):
+    def evaluate_click(self, mouse_pos, params):
         """
         Select a token if none is selected.
         Move token to a square if it is a valid move.
         Start a new game if the game is over.
         """
         if self.status == 'playing':
-            row, column = get_clicked_row(mouse_pos), get_clicked_column(mouse_pos)
+            row, column = get_clicked_row(mouse_pos, params), get_clicked_column(mouse_pos, params)
             if self.selected_token:
                 move = self.is_valid_move(self.players[self.turn % 2], self.selected_token, row, column)
                 if move[0]:
@@ -129,28 +133,28 @@ class Game:
             return 'draw'
         return None
 
-    def draw(self):
+    def draw(self, screen, params):
         """
         Draw the game board and the X's and O's.
         """
         for i in range(9):
-            pygame.draw.line(screen, WHITE, [i * WIDTH / 8, 0], [i * WIDTH / 8, HEIGHT], 5)
-            pygame.draw.line(screen, WHITE, [0, i * HEIGHT / 8], [WIDTH, i * HEIGHT / 8], 5)
-        font = pygame.font.SysFont('Calibri', MARK_SIZE, False, False)
+            pygame.draw.line(screen, params['WHITE'], [i * params['WIDTH'] / 8, 0], [i * params['WIDTH'] / 8, params['HEIGHT'] ], 5)
+            pygame.draw.line(screen, params['WHITE'], [0, i * params['HEIGHT'] / 8], [params['WIDTH'], i * params['HEIGHT'] / 8], 5)
+        font = pygame.font.SysFont('Calibri', params['MARK_SIZE'], False, False)
         for r in range(len(self.game_board)):
             for c in range(len(self.game_board[r])):
                 mark = self.game_board[r][c]
                 if self.players[self.turn % 2] == mark.lower():
-                    color = YELLOW
+                    color = params['YELLOW']
                 else:
-                    color = WHITE
+                    color = params['WHITE']
                 if self.selected_token:
                     if self.selected_token[0] == r and self.selected_token[1] == c:
-                        color = RED
+                        color = params['RED']
                 if mark != '-':
                     mark_text = font.render(self.game_board[r][c], True, color)
-                    x = WIDTH / 8 * c + WIDTH / 16
-                    y = HEIGHT / 8 * r + HEIGHT / 16
+                    x = params['WIDTH'] / 8 * c + params['WIDTH'] / 16
+                    y = params['HEIGHT'] / 8 * r + params['HEIGHT'] / 16
                     screen.blit(mark_text, [x - mark_text.get_width() / 2, y - mark_text.get_height() / 2])
 
 ###

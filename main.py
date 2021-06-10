@@ -5,26 +5,14 @@ from src.game import Game
 from src.player import Player, RandomPlayer, MCPlayer, KeyboardPlayer
 from src.utils import *
 
-# Define some colors
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-GREEN    = (   0, 255,   0)
-RED      = ( 255,   0,   0)
-BLUE     = (   0,   0, 255)
-YELLOW   = ( 255, 255,   0)
-TRANS    = (   1,   2,   3)
 
-# CONSTANTS:
-WIDTH = 700
-HEIGHT = 700
-MARK_SIZE = 50
 
 ### SOURCE :  ###
 def main(params):
     
     # start pygame:
     pygame.init()
-    size = (WIDTH, HEIGHT)
+    size = (params['WIDTH'], params['HEIGHT'])
     screen = pygame.display.set_mode(size)
 
     # start game:
@@ -49,16 +37,16 @@ def main(params):
                 entry = str(event.key)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                game.evaluate_click(pygame.mouse.get_pos())
+                game.evaluate_click(pygame.mouse.get_pos(), params)
 
         # --- Drawing code should go here
 
         # First, clear the screen to black. Don't put other drawing commands
         # above this, or they will be erased with this command.
-        screen.fill(BLACK)
+        screen.fill(params['BLACK'])
 
         # draw the game board and marks:
-        game.draw()
+        game.draw(screen, params)
 
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
@@ -76,5 +64,6 @@ def main(params):
 
 if __name__ == "__main__":
     params = parse_yaml("parameters.yaml")
+
     main(params)
     
