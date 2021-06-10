@@ -12,9 +12,11 @@ class Game:
         self.selected_token = None
         self.jumping = False
         pygame.display.set_caption("%s's turn" % self.players[self.turn % 2])
+        
         if board_size not in [8, 10]:
             raise Exception("wrong board size, try 8 or 10.")
         self.board_size = board_size
+        
         if board_size == 8:
             self.game_board = [['x','-','x','-','x','-','x','-'],
                                ['-','x','-','x','-','x','-','x'],
@@ -35,7 +37,6 @@ class Game:
                                ['-','o','-','o','-','o','-','o','-','o'],
                                ['o','-','o','-','o','-','o','-','o','-'],
                                ['-','o','-','o','-','o','-','o','-','o']]
-
 
     def evaluate_click(self, mouse_pos):
         """

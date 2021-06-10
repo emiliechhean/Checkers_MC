@@ -19,7 +19,6 @@ WIDTH = 700
 HEIGHT = 700
 MARK_SIZE = 50
 
-
 ### SOURCE :  ###
 def main(params):
     
