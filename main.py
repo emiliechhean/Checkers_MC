@@ -16,10 +16,10 @@ def main(params):
     screen = pygame.display.set_mode(size)
 
     # start game:
-    game = Game(board_size = params["BOARD_SIZE"])
+    player1 = KeyboardPlayer(symb = 'o')
+    player2 = KeyboardPlayer(symb = 'x')
+    game = Game(player1, player2, board_size = params["BOARD_SIZE"])
 
-    player = KeyboardPlayer(symb = 'x')
-    print(player)
 
     # Loop until the user clicks the close button.
     done = False
