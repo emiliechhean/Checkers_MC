@@ -1,22 +1,5 @@
 BOARD_SIZE: 8
 
-
 #PLAYERS have to be in ["Random", "Keyboard", "MC"]
 PLAYER1: "Random"
 PLAYER2: "Random"
-
-
-
-# Define some colors
-BLACK: !!python/tuple [   0,   0,   0]
-WHITE: !!python/tuple [ 255, 255, 255]
-GREEN: !!python/tuple [   0, 255,   0]
-RED: !!python/tuple [ 255,   0,   0]
-BLUE: !!python/tuple [   0,   0, 255]
-YELLOW: !!python/tuple [ 255, 255,   0]
-TRANS: !!python/tuple [   1,   2,   3]
-
-# CONSTANTS:
-WIDTH: 700
-HEIGHT: 700
-MARK_SIZE: 50

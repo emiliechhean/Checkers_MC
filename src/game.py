@@ -1,5 +1,4 @@
 import random
-import pygame
 from src.utils import *
 
 ### SOURCE : ###
@@ -15,7 +14,7 @@ class Game:
         self.players = [player1, player2]
         self.selected_token = None
         self.jumping = False
-        pygame.display.set_caption("%s's turn" % str(self.players[self.turn % 2]))
+        print("%s's turn" % str(self.players[self.turn % 2]))
         
         if board_size not in [8, 10]:
             raise Exception("wrong board size, try 8 or 10.")
@@ -41,33 +40,25 @@ class Game:
                                ['-','o','-','o','-','o','-','o','-','o'],
                                ['o','-','o','-','o','-','o','-','o','-'],
                                ['-','o','-','o','-','o','-','o','-','o']]
+        def __str__(self):
+            str_game_board = ""
+            for i in range(len(self.game_board)):
+                str_game_board += str(self.game_board[i])+'\n'
+            return str_game_board
+    
         player1.init_moves(self)
         player2.init_moves(self)
 
-    def evaluate_click(self, mouse_pos, params):
+    def evaluate_click(self):
         """
         Select a token if none is selected.
         Move token to a square if it is a valid move.
         Start a new game if the game is over.
         """
         player = self.players[self.turn % 2]
-        player_symb = str(self.players[self.turn % 2])
         if self.status == 'playing':
-            row, column = get_clicked_row(mouse_pos, params), get_clicked_column(mouse_pos, params)
-            if self.selected_token:
-                move = self.is_valid_move(player_symb, self.selected_token, row, column)
-                if move[0]:
-                    player.play(self, self.selected_token, row, column, move[1])
-                elif row == self.selected_token[0] and column == self.selected_token[1]:
-                    self.selected_token = None
-                    if self.jumping:
-                        self.jumping = False
-                        self.next_turn()
-                else:
-                    print('invalid move')
-            else:
-                if self.game_board[row][column].lower() == player_symb:
-                    self.selected_token = [row, column]
+            player.play_next_move(self)
+            
         elif self.status == 'game over':
             self.__init__()
 
@@ -95,7 +86,7 @@ class Game:
 
     def next_turn(self):
         self.turn += 1
-        pygame.display.set_caption("%s's turn" % self.players[self.turn % 2])
+        print("%s's turn" % self.players[self.turn % 2])
 
     def check_winner(self):
         """
@@ -111,28 +102,3 @@ class Game:
             return 'draw'
         return None
 
-    def draw(self, screen, params):
-        """
-        Draw the game board and the X's and O's.
-        """
-        for i in range(9):
-            pygame.draw.line(screen, params['WHITE'], [i * params['WIDTH'] / 8, 0], [i * params['WIDTH'] / 8, params['HEIGHT'] ], 5)
-            pygame.draw.line(screen, params['WHITE'], [0, i * params['HEIGHT'] / 8], [params['WIDTH'], i * params['HEIGHT'] / 8], 5)
-        font = pygame.font.SysFont('Calibri', params['MARK_SIZE'], False, False)
-        for r in range(len(self.game_board)):
-            for c in range(len(self.game_board[r])):
-                mark = self.game_board[r][c]
-                if str(self.players[self.turn % 2]) == mark.lower():
-                    color = params['YELLOW']
-                else:
-                    color = params['WHITE']
-                if self.selected_token:
-                    if self.selected_token[0] == r and self.selected_token[1] == c:
-                        color = params['RED']
-                if mark != '-':
-                    mark_text = font.render(self.game_board[r][c], True, color)
-                    x = params['WIDTH'] / 8 * c + params['WIDTH'] / 16
-                    y = params['HEIGHT'] / 8 * r + params['HEIGHT'] / 16
-                    screen.blit(mark_text, [x - mark_text.get_width() / 2, y - mark_text.get_height() / 2])
-
-###
