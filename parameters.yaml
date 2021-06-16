@@ -1,5 +1,5 @@
 BOARD_SIZE: 8
 
-#PLAYERS have to be in ["Random", "Keyboard", "MC"]
-PLAYER1: "Random"
+#PLAYERS have to be in ["Keyboard", "Random", "MC"]
+PLAYER1: "Keyboard"
 PLAYER2: "Random"

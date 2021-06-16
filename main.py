@@ -10,8 +10,14 @@ from src.utils import *
 def main(params):
     
     # start game:
-    player1 = RandomPlayer(symb = 'x')
-    player2 = RandomPlayer(symb = 'o')
+    if params['PLAYER1']=='Keyboard':
+        player1 = KeyboardPlayer(symb = 'x')
+    elif params['PLAYER1']=='Random':
+        player1 = RandomPlayer(symb = 'x')
+    if params['PLAYER2']=='Keyboard':
+        player2 = KeyboardPlayer(symb = 'o')
+    elif params['PLAYER2']=='Random':
+        player2 = RandomPlayer(symb = 'o')
     if player1.symb == player2.symb:
         raise exception("Please chose an other symbol for the second player")
     

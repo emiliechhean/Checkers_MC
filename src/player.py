@@ -54,8 +54,8 @@ class Player:
 class KeyboardPlayer(Player):
     def play_next_move(self, game):
         if game.selected_token:
-            t = tuple(input(f'Enter the case "(row, column)" we want to move the pawn:'))
-            row, column = int(t[1]), int(t[3])
+            t = input(f'Enter the case "row column" we want to move the pawn:')
+            row, column = int(t[0]), int(t[2])
             
             move = game.is_valid_move(self.symb, game.selected_token, row, column)
             if move[0]: #si cest un valid move (a gauche : true)
@@ -72,8 +72,9 @@ class KeyboardPlayer(Player):
         #quand il a cliqué sur le pion a deplacer
         else: 
             #si ca correspond au symbole du joueur a qui c'est le tour
-            t = tuple(input(f'Enter the case "(row, column)" of the moving pawn:'))
-            row, column = int(t[1]), int(t[3])
+            t = input(f'Enter the case "row column" of the moving pawn:')
+            row, column = int(t[0]), int(t[2])
+            #row, column = int(t[1]), int(t[3])
             if game.game_board[row][column].lower() == self.symb:
                 #selected token devient le pion sur lequel on clique en premier
                 game.selected_token = [row, column]
