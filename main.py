@@ -10,12 +10,13 @@ from src.utils import *
 def main(params):
     
     # start game:
-    player1 = KeyboardPlayer(symb = 'o')
-    player2 = RandomPlayer(symb = 'x')
+    player1 = RandomPlayer(symb = 'x')
+    player2 = RandomPlayer(symb = 'o')
     if player1.symb == player2.symb:
         raise exception("Please chose an other symbol for the second player")
     
     game = Game(player1, player2, board_size = params["BOARD_SIZE"])
+    print(game)
 
     # Loop
     done = False
@@ -23,13 +24,10 @@ def main(params):
     # game loop:
     while not done:
         # --- Main event loop
+        
         if game.status == 'game over':
             done = True
-        print(game)
-        if type(game.players[game.turn % 2]) == type(KeyboardPlayer()):
-            game.evaluate_click()
-        elif type(game.players[game.turn % 2]) == type(RandomPlayer()):
-            game.evaluate_click()
+        game.evaluate_click()
 
 
 ###

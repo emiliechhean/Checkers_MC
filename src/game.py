@@ -40,14 +40,16 @@ class Game:
                                ['-','o','-','o','-','o','-','o','-','o'],
                                ['o','-','o','-','o','-','o','-','o','-'],
                                ['-','o','-','o','-','o','-','o','-','o']]
-        def __str__(self):
-            str_game_board = ""
-            for i in range(len(self.game_board)):
-                str_game_board += str(self.game_board[i])+'\n'
-            return str_game_board
+        
     
         player1.init_moves(self)
         player2.init_moves(self)
+        
+    def __str__(self):
+            str_game_board = " " +str([str(j) for j in range(self.board_size)]) + '\n'
+            for i in range(self.board_size):
+                str_game_board += str(i) + str(self.game_board[i])+'\n'
+            return str_game_board
 
     def evaluate_click(self):
         """
